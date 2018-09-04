@@ -1,0 +1,78 @@
+<% extend('./layouts/layout') %>
+<div class="container">
+
+
+  <div class="hex-blog">
+    <nav class="breadcrumb pl-0">
+      <a class="breadcrumb-item text-primary" href="#">Home</a>
+      <a class="breadcrumb-item text-primary" href="http://localhost:3000/<%- articles.category %>">
+        <% for(item in category){ %>
+        <% if(category[item].id==articles.category){ %>
+        <%- category[item].name %>
+        <% } %>
+        <% } %>
+      </a>
+      <span class="breadcrumb-item active">
+        <%- articles.title %></span>
+    </nav>
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <!-- artical header -->
+        <h1 class="text-primary">
+          <%- articles.title || "" %>
+        </h1>
+        <div class="d-flex flex-row text-secondary small">
+          <div class="p-2"><i class="fa fa-user-o" aria-hidden="true"></i> 卡斯伯</div>
+          <div class="p-2">
+            <%- moment(articles.update_time*1000).format('YYYY/MM/DD') %>
+          </div>
+          <div class="p-2"><i class="fa fa-tag" aria-hidden="true"></i>
+            <a href="" class="text-info">
+              <% for(item in category){ %>
+              <% if(category[item].id==articles.category){ %>
+              <%- category[item].name %>
+              <% } %>
+              <% } %>
+            </a>
+          </div>
+        </div>
+        <article class="text-dark post mb-4">
+          <p>
+            <%- articles.content || "" %>
+          </p>
+
+        </article>
+        <!-- 留言 -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <div id="disqus_thread"></div>
+            <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+              /*
+              var disqus_config = function () {
+              this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+              this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+              };
+              */
+              (function () { // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                  s = d.createElement('script');
+                s.src = 'https://blog-zhhq0q7qsu.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
+                by Disqus.</a></noscript>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

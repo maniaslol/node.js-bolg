@@ -1,0 +1,52 @@
+<% extend('./layouts/layout') %>
+<div class="container">
+    
+
+<div class="row my-4 justify-content-center">
+  <div class="col-md-9">
+    <% for(prop in articlesShow){ %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <a  href="/post/<%- articlesShow[prop].id %>"> <h2 class="text-primary"><%- articlesShow[prop].title %></h2></a>
+          <div class="d-flex flex-row text-secondary small">
+            <div class="p-2"><span class="fa fa-clock-o"></span> <%- moment(articlesShow[prop].update_time*1000).format('YYYY/MM/DD') %> </div>
+            <div class="p-2"><i class="fa fa-tag" aria-hidden="true"></i> 
+                <% for(item in category){ %>
+                  <% if(category[item].id==articlesShow[prop].category){ %>
+                    <a href="/<%- category[item].id %>" class="text-info">
+                      <%- category[item].name %>
+                    </a>
+                    <% } %>
+                <% } %>
+              </a>
+            </div>
+          </div>
+          <div>
+            <%- striptags(articlesShow[prop].content).slice(0,150) %>...
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<% if(TotalPage>1){ %>
+<nav class="my-5" aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item <% if(pageNow==1){ %> disabled <% } %>">
+      <a class="page-link" href="/?page=<%- pageNow-1 %>" tabindex="-1">Previous</a>
+    </li>
+    <% for(var i = 1 ; TotalPage+1 > i ; i++){ %>
+      <li class="page-item <% if(pageNow==i){ %> active <% } %>"> 
+        <a class="page-link" href="/?page=<%- i %>">
+          <%- i %>
+        </a>
+      </li>
+    <% } %>
+    <li class="page-item <% if(pageNow==TotalPage){ %> disabled <% } %>">
+      <a class="page-link" href="/?page=<%- pageNow+1 %>">Next</a>
+    </li>
+  </ul>
+</nav>
+<% } %>
+  </div>
